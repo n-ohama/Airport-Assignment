@@ -7,17 +7,26 @@ class Airport {
   
   List<Airplane> docks;
 
+  List<Airplane> waitingList;
+
   public Airport()
   {
     docks = new LinkedList<Airplane>();
+    waitingList = new LinkedList<Airplane>();
   }
 
   public void flyPlane() {
     Airplane airplane;
+    Airplane waitingAirplane;
     synchronized (docks)
     {
       while(docks.size()==0)
       {
+        if(waitingList.size() != 0) {
+          waitingAirplane = (Airplane)((LinkedList<?>)waitingList).poll();
+          ((LinkedList<Airplane>) docks).offer(waitingAirplane);
+          break;
+        }
         System.out.println("ATC is waiting for airplane.");
         try {
           docks.wait();

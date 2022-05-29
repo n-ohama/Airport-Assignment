@@ -13,7 +13,8 @@ class CustomerGenerator implements Runnable
  
     public void run()
     {
-        while(!closingTime)
+        int number = 0;
+        while(number < 6)
         {
             Customer customer = new Customer(shop);
             customer.setInTime(new Date());
@@ -29,17 +30,7 @@ class CustomerGenerator implements Runnable
             {
                 iex.printStackTrace();
             }
+            number++;
         }
-        if (closingTime) { try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} return;}
-    }
-    
-    public synchronized void setclosingTime() {
-        closingTime = true;
-        System.out.println("Closing ? OK?");
     }
 }
