@@ -62,6 +62,7 @@ class Airport {
 
   public void putInAirport(Airplane airplane)
   {
+    Airplane waitingAirplane; 
     System.out.println("Airplane : " + airplane.getName() + "Willing to be entering the dock at " + airplane.getDate());
 
     synchronized(docks)
@@ -69,10 +70,17 @@ class Airport {
       if(docks.size() == nDock) {
         System.out.println("No dock available for airplane " + airplane.getName());
         System.out.println("Airplane " + airplane.getName() + "Exits...");
+        ((LinkedList<Airplane>) waitingList).offer(airplane);
+
         return;
       }
 
-      ((LinkedList<Airplane>) docks).offer(airplane);
+      if(waitingList.size() > 0) {
+        waitingAirplane = (Airplane)((LinkedList<?>)waitingList).poll();
+        ((LinkedList<Airplane>) docks).offer(waitingAirplane);
+      } else {
+        ((LinkedList<Airplane>) docks).offer(airplane);
+      }
 
       if(docks.size()==1) {
         docks.notify();
