@@ -59,10 +59,6 @@ class Airport {
 
     synchronized (docks) {
       if (docks.size() < nDock) {
-        System.out.println("No dock available for airplane " + airplane.getName());
-        System.out.println("Airplane " + airplane.getName() + "Exits...");
-        ((LinkedList<Airplane>) docks).offer(airplane);
-
         // If dock is available, the waiting airplane can be land and dock the dock.
         if (waitingList.size() > 0) {
           waitingAirplane = (Airplane) ((LinkedList<?>) waitingList).poll();
