@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 class Airport {
   public int nDock = 2;
+  int lastNum = 0;
 
   List<Airplane> docks;
 
@@ -18,14 +19,23 @@ class Airport {
     Airplane airplane;
 
     synchronized (docks) {
+      if (lastNum == 5) {
+        System.out.println("◯");
+        return;
+      } else {
+        System.out.println("❌");
+      }
       while (docks.size() == 0) {
 
         System.out.println("ATC is waiting for airplane.");
+
         try {
+
           docks.wait();
         } catch (InterruptedException iex) {
           iex.printStackTrace();
         }
+
       }
       System.out.println("ATC found a airplane in the air.");
       airplane = (Airplane) ((LinkedList<?>) docks).poll();
@@ -51,11 +61,12 @@ class Airport {
 
     System.out.println("Completed cleaning in: " + airplane.getName() + " in " + duration + " seconds.");
     System.out.println("Airplane " + airplane.getName() + " left...");
+    ++lastNum;
   }
 
   public void putInAirport(Airplane airplane) {
     Airplane waitingAirplane;
-    System.out.println("Airplane : " + airplane.getName() + "Willing to be entering the dock at " + airplane.getDate());
+    System.out.println("Airplane : " + airplane.getName() + "landing request " + airplane.getDate());
 
     synchronized (docks) {
       if (docks.size() < nDock) {
