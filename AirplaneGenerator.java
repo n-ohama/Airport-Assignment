@@ -4,10 +4,12 @@ import java.util.concurrent.TimeUnit;
 
 class AirplaneGenerator implements Runnable {
     Airport airport;
+    ATC atc;
     public boolean closingTime = false;
 
-    public AirplaneGenerator(Airport airport) {
+    public AirplaneGenerator(Airport airport, ATC atc) {
         this.airport = airport;
+        this.atc = atc;
     }
 
     public void run() {
@@ -26,5 +28,8 @@ class AirplaneGenerator implements Runnable {
             }
             number++;
         }
+        atc.setclosingTime();
+
     }
+
 }

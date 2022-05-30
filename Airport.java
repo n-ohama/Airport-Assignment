@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 class Airport {
   public int nDock = 2;
-  int lastNum = 0;
 
   List<Airplane> docks;
 
@@ -19,16 +18,10 @@ class Airport {
     Airplane airplane;
 
     synchronized (docks) {
-      ++lastNum;
-      if (lastNum == 7) {
-        System.out.println("◯");
-        return;
-      } else {
-        System.out.println("❌");
-      }
+
       while (docks.size() == 0) {
 
-        System.out.println("ATC is waiting for airplane. " + lastNum);
+        System.out.println("ATC is waiting for airplane. ");
 
         try {
 
