@@ -21,10 +21,15 @@ class Airport {
 
       while (docks.size() == 0) {
 
+        if(waitingList.size() > 0) {
+          airplane = (Airplane) ((LinkedList<?>) waitingList).poll();
+          ((LinkedList<Airplane>) docks).offer(airplane);
+          break;
+        }
+
         System.out.println("ATC is waiting for airplane. ");
 
         try {
-
           docks.wait();
         } catch (InterruptedException iex) {
           iex.printStackTrace();
@@ -59,23 +64,24 @@ class Airport {
 
   public void putInAirport(Airplane airplane) {
     Airplane waitingAirplane;
-    System.out.println("Airplane : " + airplane.getName() + "landing request " + airplane.getDate());
+    System.out.println(airplane.getName() + " landing request " + airplane.getDate());
 
     synchronized (docks) {
       if (docks.size() < nDock) {
         // If dock is available, the waiting airplane can be land and dock the dock.
         if (waitingList.size() > 0) {
           waitingAirplane = (Airplane) ((LinkedList<?>) waitingList).poll();
-          System.out.println("Next waiting airplane can land the airport.");
+          System.out.println(waitingAirplane.getName() + " Waiting Airplane → docks");
           ((LinkedList<Airplane>) docks).offer(waitingAirplane);
 
         } else {
           ((LinkedList<Airplane>) docks).offer(airplane);
-          System.out.println("There is empty dock, " + airplane.getName() + "can land directly.");
+          System.out.println(airplane.getName() + " can land directly into docks.");
         }
-
+        
       } else {
         ((LinkedList<Airplane>) waitingList).offer(airplane);
+        System.out.println(airplane.getName() + " can land into waitingList");
       }
 
       if (docks.size() == 1) {

@@ -34,7 +34,7 @@ class ATC implements Runnable {
             }
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(15000);
                 System.out
                         .println(
                                 "Looks like there's " + airport.waitingList.size() + "Airplanes left. Going home now.");
@@ -49,7 +49,7 @@ class ATC implements Runnable {
 
     public synchronized void setclosingTime() {// 6台作ったら終了
         closingTime = true;
-        System.out.println("Closing? OK.");
+        System.out.println("Generated 6 Airplane");
     }
 
 }

@@ -18,7 +18,7 @@ class AirplaneGenerator implements Runnable {
             Airplane airplane = new Airplane(airport);
             airplane.setDate(new Date());
             Thread thairplane = new Thread(airplane);
-            airplane.setName("Customer " + thairplane.getId());
+            airplane.setName("Airplane " + thairplane.getId());
             thairplane.start();
 
             try {
