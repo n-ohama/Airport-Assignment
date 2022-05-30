@@ -5,8 +5,7 @@ class Airplane implements Runnable {
   Date date;
   Airport airport;
 
-  public Airplane(Airport airport)
-  {
+  public Airplane(Airport airport) {
     this.airport = airport;
   }
 
@@ -26,13 +25,11 @@ class Airplane implements Runnable {
     this.date = date;
   }
 
-  public void run()
-  {
+  public void run() {
     landing();
   }
 
-  private synchronized void landing()
-  {
+  private synchronized void landing() {
     airport.putInAirport(this);
   }
 }
