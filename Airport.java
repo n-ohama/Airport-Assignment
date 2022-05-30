@@ -19,13 +19,13 @@ class Airport {
     Airplane airplane;
 
     synchronized (docks) {
-      if (lastNum == 6) {
+      ++lastNum;
+      if (lastNum == 7) {
         System.out.println("◯");
         return;
       } else {
         System.out.println("❌");
       }
-      ++lastNum;
       while (docks.size() == 0) {
 
         System.out.println("ATC is waiting for airplane. " + lastNum);
