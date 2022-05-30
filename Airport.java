@@ -19,15 +19,16 @@ class Airport {
     Airplane airplane;
 
     synchronized (docks) {
-      if (lastNum == 5) {
+      if (lastNum == 6) {
         System.out.println("◯");
         return;
       } else {
         System.out.println("❌");
       }
+      ++lastNum;
       while (docks.size() == 0) {
 
-        System.out.println("ATC is waiting for airplane.");
+        System.out.println("ATC is waiting for airplane. " + lastNum);
 
         try {
 
@@ -61,7 +62,6 @@ class Airport {
 
     System.out.println("Completed cleaning in: " + airplane.getName() + " in " + duration + " seconds.");
     System.out.println("Airplane " + airplane.getName() + " left...");
-    ++lastNum;
   }
 
   public void putInAirport(Airplane airplane) {
