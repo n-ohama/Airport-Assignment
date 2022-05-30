@@ -58,19 +58,24 @@ class Airport {
     System.out.println("Airplane : " + airplane.getName() + "Willing to be entering the dock at " + airplane.getDate());
 
     synchronized (docks) {
-      if (docks.size() == nDock) {
+      if (docks.size() < nDock) {
         System.out.println("No dock available for airplane " + airplane.getName());
         System.out.println("Airplane " + airplane.getName() + "Exits...");
-        ((LinkedList<Airplane>) waitingList).offer(airplane);
-
-        return;
-      }
-
-      if (waitingList.size() > 0) {
-        waitingAirplane = (Airplane) ((LinkedList<?>) waitingList).poll();
-        ((LinkedList<Airplane>) docks).offer(waitingAirplane);
-      } else {
         ((LinkedList<Airplane>) docks).offer(airplane);
+
+        // If dock is available, the waiting airplane can be land and dock the dock.
+        if (waitingList.size() > 0) {
+          waitingAirplane = (Airplane) ((LinkedList<?>) waitingList).poll();
+          System.out.println("Next waiting airplane can land the airport.");
+          ((LinkedList<Airplane>) docks).offer(waitingAirplane);
+
+        } else {
+          ((LinkedList<Airplane>) docks).offer(airplane);
+          System.out.println("There is empty dock, " + airplane.getName() + "can land directly.");
+        }
+
+      } else {
+        ((LinkedList<Airplane>) waitingList).offer(airplane);
       }
 
       if (docks.size() == 1) {
