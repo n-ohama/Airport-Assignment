@@ -1,18 +1,18 @@
 
 public class Main {
-
 	public static void main(String[] args) {
+    Bshop shop = new Bshop();
+    
+    Barber barber = new Barber(shop);
+    CustomerGenerator cg = new CustomerGenerator(shop);
+    
+    Thread thbarber = new Thread(barber);
+    Thread thcg = new Thread(cg);
+    thcg.start();
+    thbarber.start();
 
-		Airport airport = new Airport();
-		ATC atc = new ATC(airport);
-
-		AirplaneGenerator ag = new AirplaneGenerator(airport, atc);
-		Thread thAtc = new Thread(atc);
-
-		Thread thAg = new Thread(ag);
-		thAg.start();
-		thAtc.start();
-
+    Clock clock = new Clock(cg, barber);
+    clock.start();
 	}
 
 }
