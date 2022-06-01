@@ -26,9 +26,6 @@ class CustomerGenerator implements Runnable
       }
       number++;
     }
-  }
-
-  public synchronized void setclosingTime() {
     closingTime = true;
   }
 }
