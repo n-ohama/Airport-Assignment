@@ -14,7 +14,7 @@ class Bshop
         listCustomer = new LinkedList<Customer>();
     }
  
-    public void cutHair()
+    public void cutHair(int unique)
     {
         Customer customer;
         synchronized (listCustomer)
@@ -22,7 +22,7 @@ class Bshop
  
             while(listCustomer.size()==0)
             {
-                System.out.println("Barber is waiting for customer.");
+                System.out.println("Barber" + unique + " is waiting for customer.");
                 try
                 {
                     listCustomer.wait();
@@ -32,14 +32,14 @@ class Bshop
                     iex.printStackTrace();
                 }
             }
-            System.out.println("Barber found a customer in the queue.");
+            System.out.println("Barber" + unique + " found a customer in the queue.");
             customer = (Customer)((LinkedList<?>)listCustomer).poll();
         }
         long duration=0;
         try
         {    
             System.out.println("Cutting hair of Customer : "+customer.getName());
-            duration = (long)(Math.random()*10);
+            duration = (long)(Math.random()*40);
             TimeUnit.SECONDS.sleep(duration);
         }
         catch(InterruptedException iex)

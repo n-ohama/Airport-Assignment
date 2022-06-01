@@ -19,7 +19,7 @@ class CustomerGenerator implements Runnable {
             thcustomer.start();
 
             try {
-                TimeUnit.SECONDS.sleep((long) (Math.random() * 10));
+                TimeUnit.SECONDS.sleep((long) (3));
             } catch (InterruptedException iex) {
                 iex.printStackTrace();
             }

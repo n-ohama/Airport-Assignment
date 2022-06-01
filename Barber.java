@@ -17,13 +17,11 @@ class Barber implements Runnable {
         }
         System.out.println("Barber started.....");
         while (!customerGenerator.closingTime) {
-            shop.cutHair();
+            shop.cutHair(unique);
         }
         if (customerGenerator.closingTime) {
-            if (unique == 1) {
-                while (shop.listCustomer.size() > 0) {
-                    shop.cutHair();
-                }
+            while (shop.listCustomer.size() > 0) {
+                shop.cutHair(unique);
             }
             try {
                 Thread.sleep(5000);
