@@ -1,10 +1,12 @@
 class Barber implements Runnable {
     Bshop shop;
     CustomerGenerator customerGenerator;
+    int unique;
 
-    public Barber(Bshop shop, CustomerGenerator customerGenerator) {
+    public Barber(Bshop shop, CustomerGenerator customerGenerator, int unique) {
         this.shop = shop;
         this.customerGenerator = customerGenerator;
+        this.unique = unique;
     }
 
     public void run() {
@@ -18,8 +20,10 @@ class Barber implements Runnable {
             shop.cutHair();
         }
         if (customerGenerator.closingTime) {
-            while (shop.listCustomer.size() > 0) {
-                shop.cutHair();
+            if (unique == 1) {
+                while (shop.listCustomer.size() > 0) {
+                    shop.cutHair();
+                }
             }
             try {
                 Thread.sleep(5000);
