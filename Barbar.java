@@ -1,9 +1,10 @@
 class Barber implements Runnable {
   Bshop shop;
-  public boolean closingTime = false;
+  CustomerGenerator customerGenerator;
 
-  public Barber(Bshop shop) {
+  public Barber(Bshop shop, CustomerGenerator customerGenerator) {
     this.shop = shop;
+    this.customerGenerator = customerGenerator;
   }
 
   public void run() {
@@ -13,10 +14,13 @@ class Barber implements Runnable {
       iex.printStackTrace();
     }
     System.out.println("Barber started.....");
-    while (!closingTime) {
+    while (!customerGenerator.closingTime) {
       shop.cutHair();
     }
-    if (closingTime) {
+    if (customerGenerator.closingTime) {
+      while(shop.listCustomer.size() > 0) {
+        shop.cutHair();
+      }
       try {
         Thread.sleep(5000);
       } catch (InterruptedException e) {
@@ -24,10 +28,5 @@ class Barber implements Runnable {
       }
       return;
     }
-  }
-
-  public synchronized void setclosingTime() {
-    closingTime = true;
-    System.out.println("Barbar: We are Closing");
   }
 }
