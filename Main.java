@@ -1,17 +1,17 @@
 
 public class Main {
 	public static void main(String[] args) {
-		Bshop shop = new Bshop();
+		ATC atc = new ATC();
 
-		CustomerGenerator cg = new CustomerGenerator(shop);
-		Barber barber1 = new Barber(shop, cg, 1);
-		Barber barber2 = new Barber(shop, cg, 2);
-		Thread thbarber1 = new Thread(barber1);
-		Thread thbarber2 = new Thread(barber2);
-		Thread thcg = new Thread(cg);
-		thcg.start();
-		thbarber1.start();
-		thbarber2.start();
+		AirplanGenerator ag = new AirplanGenerator(atc);
+		Dock dock1 = new Dock(atc, ag, 1);
+		Dock dock2 = new Dock(atc, ag, 2);
+		Thread thdock1 = new Thread(dock1);
+		Thread thdock2 = new Thread(dock2);
+		Thread thag = new Thread(ag);
+		thag.start();
+		thdock1.start();
+		thdock2.start();
 	}
 
 }
